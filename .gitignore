@@ -1,0 +1,60 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.VC.db
+*.VC.VC.opendb
+
+# Build output
+build/
+x64/
+Debug/
+Release/
+out/
+bin/
+obj/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+_deps/
+*.cmake.user
+
+# Visual C++ generated files
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.pch
+*.ipch
+*.tlog
+*.lastbuildstate
+*.log
+*.exp
+*.lib
+*.dll
+*.exe
+
+# Test output
+TestResults/
+*.trx
+
+# NuGet / packages
+packages/
+*.nupkg
+
+# Temporary / backup
+*.tmp
+*.temp
+*.bak
+*.orig
+*.userprefs
+*~
+Thumbs.db
+Desktop.ini
+
+# Keep external dependencies out of Git for now
+external/RxCpp/
