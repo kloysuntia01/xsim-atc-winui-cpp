@@ -1,0 +1,25 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    runtimeclass ViewContainer
+    {
+        String Title{ get; };
+        Object Content{ get; };
+    }
+
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass MainViewModel :
+        Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        MainViewModel();
+
+        String Title{ get; };
+        ViewContainer SelectedView{ get; };
+
+        event Windows.Foundation.EventHandler<Object> NavigateToTowerRequested;
+
+        void NavigateToTower();
+        void SelectView(ViewContainer view);
+    }
+}

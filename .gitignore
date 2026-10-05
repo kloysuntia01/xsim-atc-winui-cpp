@@ -58,3 +58,21 @@ Desktop.ini
 
 # Keep external dependencies out of Git for now
 external/RxCpp/
+
+# WinUI / C++/WinRT generated files
+Generated Files/
+GeneratedFiles/
+*.winmd
+
+# Visual Studio transient state
+*.VC.VC.opendb
+*.opendb
+
+# MSBuild intermediate/output folders that may appear below projects
+[Bb]uild/
+[Dd]ebug*/
+[Rr]elease*/
+
+# Local publish / scratch folders if ever created inside the repo
+xsim.dev/
+

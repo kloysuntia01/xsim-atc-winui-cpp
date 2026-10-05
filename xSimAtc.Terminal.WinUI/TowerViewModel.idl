@@ -1,0 +1,14 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass TowerViewModel :
+        Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        String TowerGuid{ get; };
+        String PendingMessage{ get; };
+        String LastMessage{ get; };
+
+        void Send();
+    }
+}

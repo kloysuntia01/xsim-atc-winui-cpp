@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="MainWindow.xaml"><Filter>Views</Filter></Page>
+    <Page Include="TowerView.xaml"><Filter>Views</Filter></Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Midl Include="MainWindow.idl"><Filter>Views</Filter></Midl>
+    <Midl Include="MainViewModel.idl"><Filter>ViewModels</Filter></Midl>
+    <Midl Include="TowerView.idl"><Filter>Views</Filter></Midl>
+    <Midl Include="TowerViewModel.idl"><Filter>ViewModels</Filter></Midl>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="MainWindow.xaml.cpp"><Filter>Views</Filter></ClCompile>
+    <ClCompile Include="MainViewModel.cpp"><Filter>ViewModels</Filter></ClCompile>
+    <ClCompile Include="ModelBase.cpp"><Filter>Models</Filter></ClCompile>
+    <ClCompile Include="TowerView.xaml.cpp"><Filter>Views</Filter></ClCompile>
+    <ClCompile Include="TowerViewModel.cpp"><Filter>ViewModels</Filter></ClCompile>
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="MainWindow.xaml.h"><Filter>Views</Filter></ClInclude>
+    <ClInclude Include="MainViewModel.h"><Filter>ViewModels</Filter></ClInclude>
+    <ClInclude Include="ModelBase.h"><Filter>Models</Filter></ClInclude>
+    <ClInclude Include="TowerView.xaml.h"><Filter>Views</Filter></ClInclude>
+    <ClInclude Include="TowerViewModel.h"><Filter>ViewModels</Filter></ClInclude>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Manifest Include="app.manifest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Filter Include="Generated Files"><UniqueIdentifier>{93a3c583-e293-446d-a593-aa19ccf8d99a}</UniqueIdentifier></Filter>
+    <Filter Include="Views"><UniqueIdentifier>{1b16318c-5c44-4cd1-b0e7-7dae10f1de15}</UniqueIdentifier></Filter>
+    <Filter Include="ViewModels"><UniqueIdentifier>{b2d9e218-f7fa-46dc-8a95-99b6a4efc25c}</UniqueIdentifier></Filter>
+    <Filter Include="Models"><UniqueIdentifier>{f0a1e734-7d31-47e7-a6a7-463280fbab40}</UniqueIdentifier></Filter>
+    <Filter Include="Services"><UniqueIdentifier>{cc40d70f-9874-4a28-8816-b219a9cf9c7e}</UniqueIdentifier></Filter>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+</Project>

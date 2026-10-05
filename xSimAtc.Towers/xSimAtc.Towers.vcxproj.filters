@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="tower.cpp" />
+    <ClCompile Include="tower_base.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="i_tower.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="tower.h" />
+    <ClInclude Include="tower_base.h" />
+    <ClInclude Include="tower_signal.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+</Project>

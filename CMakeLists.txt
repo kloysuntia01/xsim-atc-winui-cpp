@@ -21,4 +21,9 @@ target_include_directories(
 enable_testing()
 
 add_subdirectory(xSimAtc.Aircrafts)
+add_subdirectory(xSimAtc.Towers)
+add_subdirectory(xSimAtc.Communications)
+add_subdirectory(xSimAtc.Terminal.WinUI)
 add_subdirectory(xSimAtc.Aircrafts.Tests)
+add_subdirectory(xSimAtc.Towers.Tests)
+add_subdirectory(xSimAtc.Communications.Tests)

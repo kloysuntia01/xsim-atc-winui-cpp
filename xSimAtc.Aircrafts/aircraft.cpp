@@ -1,4 +1,4 @@
-
+#include "pch.h"
 #include "aircraft_base.h"
 
 #include <objbase.h>
