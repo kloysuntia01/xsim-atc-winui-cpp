@@ -1,0 +1,12 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass TrackingsViewModel :
+        Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        String Title{ get; };
+        String Status{ get; };
+        Windows.Foundation.Collections.IVector<Object> Aircraft{ get; };
+    }
+}

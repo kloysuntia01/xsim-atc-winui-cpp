@@ -7,6 +7,8 @@
 
 #undef GetCurrentTime
 
+#include <array>
+#include <chrono>
 #include <memory>
 #include <string>
 #include <utility>
@@ -14,7 +16,9 @@
 #include <rxcpp/rx.hpp>
 
 #include <winrt/Windows.Foundation.h>
+#include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.ApplicationModel.Activation.h>
+#include <winrt/Microsoft.UI.Dispatching.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.UI.Xaml.Data.h>

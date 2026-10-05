@@ -37,7 +37,15 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         void NavigateToTowerRequested(
             winrt::event_token const& token) noexcept;
 
+        winrt::event_token NavigateToTrackingsRequested(
+            Windows::Foundation::EventHandler<
+                Windows::Foundation::IInspectable> const& handler);
+
+        void NavigateToTrackingsRequested(
+            winrt::event_token const& token) noexcept;
+
         void NavigateToTower();
+        void NavigateToTrackings();
 
         void SelectView(
             xSimAtc_Terminal_WinUI::ViewContainer const& view);
@@ -49,6 +57,11 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
             Windows::Foundation::EventHandler<
                 Windows::Foundation::IInspectable>>
             navigate_to_tower_requested_;
+
+        winrt::event<
+            Windows::Foundation::EventHandler<
+                Windows::Foundation::IInspectable>>
+            navigate_to_trackings_requested_;
     };
 }
 

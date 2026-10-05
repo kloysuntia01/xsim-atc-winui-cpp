@@ -1,0 +1,13 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass AircraftTrackingViewModel :
+        Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        String FakeGuid{ get; };
+        String CallSign{ get; };
+        Double X{ get; };
+        Double Y{ get; };
+    }
+}

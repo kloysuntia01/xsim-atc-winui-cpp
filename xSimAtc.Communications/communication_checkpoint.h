@@ -1,9 +1,10 @@
 #pragma once
 
+#include "pch.h"
 #include "communication_record.h"
 
-#include <guiddef.h>
-#include <rxcpp/rx.hpp>
+//#include <guiddef.h>
+//#include <rxcpp/rx.hpp>
 
 namespace xsim::communications
 {

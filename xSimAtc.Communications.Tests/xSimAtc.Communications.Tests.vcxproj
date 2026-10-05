@@ -61,7 +61,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\RxCpp\Rx\v2\src;$(SolutionDir)xSimAtc.Communications;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;$(MSBuildThisFileDirectory)..\xSimAtc.Communications;$(MSBuildThisFileDirectory)..\xSimAtc.Aircrafts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="communication_checkpoint_tests.cpp" />
+    <ClCompile Include="tracking_state_tests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -81,6 +82,9 @@
   <ItemGroup>
     <ProjectReference Include="..\xSimAtc.Communications\xSimAtc.Communications.vcxproj">
       <Project>{a2fc6a58-198c-4e43-85ed-67b35db7d3d5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xSimAtc.Aircrafts\xSimAtc.Aircrafts.vcxproj">
+      <Project>{1ed9a9b3-1aca-4796-ba1f-b28a540c0de1}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

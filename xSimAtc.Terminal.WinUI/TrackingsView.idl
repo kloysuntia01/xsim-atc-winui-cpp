@@ -1,0 +1,8 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [default_interface]
+    runtimeclass TrackingsView : Microsoft.UI.Xaml.Controls.Page
+    {
+        TrackingsView();
+    }
+}

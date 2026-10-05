@@ -24,6 +24,10 @@
             <Button
                 Content="Tower"
                 Click="OnTowerClick" />
+
+            <Button
+                Content="Trackings"
+                Click="OnTrackingsClick" />
         </StackPanel>
 
         <ContentControl

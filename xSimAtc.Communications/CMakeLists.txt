@@ -1,6 +1,7 @@
 add_library(
     xSimAtc.Communications
     STATIC
+    aircraft_mediator.cpp
     communication_checkpoint.cpp
     message_queue.cpp
 )
@@ -21,6 +22,7 @@ target_link_libraries(
     xSimAtc.Communications
     PUBLIC
         rxcpp
+        xSimAtc.Aircrafts
 )
 
 if(MSVC)

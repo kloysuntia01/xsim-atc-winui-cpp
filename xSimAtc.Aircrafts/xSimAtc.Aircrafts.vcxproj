@@ -31,7 +31,23 @@
     <ClInclude Include="aircraft.h" />
     <ClInclude Include="aircraft_base.h" />
     <ClInclude Include="i_aircraft.h" />
+    <ClInclude Include="i_aircraft_mediator.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="i_mediator.h" />
+    <ClInclude Include="Chain\i_handler.h" />
+    <ClInclude Include="Chain\handler_base.h" />
+    <ClInclude Include="Engine\engine_request.h" />
+    <ClInclude Include="Engine\throttle_handler.h" />
+    <ClInclude Include="Engine\fuel_handler.h" />
+    <ClInclude Include="Engine\engine_state_handler.h" />
+    <ClInclude Include="Engine\speed_handler.h" />
+    <ClInclude Include="Engine\position_handler.h" />
+    <ClInclude Include="Communication\communication_request.h" />
+    <ClInclude Include="Communication\hailing_handler.h" />
+    <ClInclude Include="Communication\pairing_handler.h" />
+    <ClInclude Include="Communication\active_handler.h" />
+    <ClInclude Include="Communication\handoff_handler.h" />
+    <ClInclude Include="Communication\completion_handler.h" />
     <ClInclude Include="transponder.h" />
     <ClInclude Include="transponder_signal.h" />
   </ItemGroup>
@@ -139,7 +155,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -161,7 +177,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

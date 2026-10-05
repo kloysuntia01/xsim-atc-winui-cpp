@@ -7,34 +7,54 @@
   <ItemGroup>
     <Page Include="MainWindow.xaml"><Filter>Views</Filter></Page>
     <Page Include="TowerView.xaml"><Filter>Views</Filter></Page>
+    <Page Include="TrackingsView.xaml"><Filter>Views</Filter></Page>
   </ItemGroup>
 
   <ItemGroup>
     <Midl Include="MainWindow.idl"><Filter>Views</Filter></Midl>
-    <Midl Include="MainViewModel.idl"><Filter>ViewModels</Filter></Midl>
     <Midl Include="TowerView.idl"><Filter>Views</Filter></Midl>
+    <Midl Include="TrackingsView.idl"><Filter>Views</Filter></Midl>
+
+    <Midl Include="MainViewModel.idl"><Filter>ViewModels</Filter></Midl>
     <Midl Include="TowerViewModel.idl"><Filter>ViewModels</Filter></Midl>
+    <Midl Include="TrackingsViewModel.idl"><Filter>ViewModels</Filter></Midl>
+    <Midl Include="AircraftTrackingViewModel.idl"><Filter>ViewModels</Filter></Midl>
   </ItemGroup>
 
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="App.xaml.cpp" />
-    <ClCompile Include="MainWindow.xaml.cpp"><Filter>Views</Filter></ClCompile>
-    <ClCompile Include="MainViewModel.cpp"><Filter>ViewModels</Filter></ClCompile>
+
     <ClCompile Include="ModelBase.cpp"><Filter>Models</Filter></ClCompile>
+    <ClCompile Include="TrackingTransponder.cpp"><Filter>Models</Filter></ClCompile>
+
+    <ClCompile Include="MainWindow.xaml.cpp"><Filter>Views</Filter></ClCompile>
     <ClCompile Include="TowerView.xaml.cpp"><Filter>Views</Filter></ClCompile>
+    <ClCompile Include="TrackingsView.xaml.cpp"><Filter>Views</Filter></ClCompile>
+
+    <ClCompile Include="MainViewModel.cpp"><Filter>ViewModels</Filter></ClCompile>
     <ClCompile Include="TowerViewModel.cpp"><Filter>ViewModels</Filter></ClCompile>
+    <ClCompile Include="TrackingsViewModel.cpp"><Filter>ViewModels</Filter></ClCompile>
+    <ClCompile Include="AircraftTrackingViewModel.cpp"><Filter>ViewModels</Filter></ClCompile>
+
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
   </ItemGroup>
 
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="MainWindow.xaml.h"><Filter>Views</Filter></ClInclude>
-    <ClInclude Include="MainViewModel.h"><Filter>ViewModels</Filter></ClInclude>
+
     <ClInclude Include="ModelBase.h"><Filter>Models</Filter></ClInclude>
+    <ClInclude Include="TrackingTransponder.h"><Filter>Models</Filter></ClInclude>
+
+    <ClInclude Include="MainWindow.xaml.h"><Filter>Views</Filter></ClInclude>
     <ClInclude Include="TowerView.xaml.h"><Filter>Views</Filter></ClInclude>
+    <ClInclude Include="TrackingsView.xaml.h"><Filter>Views</Filter></ClInclude>
+
+    <ClInclude Include="MainViewModel.h"><Filter>ViewModels</Filter></ClInclude>
     <ClInclude Include="TowerViewModel.h"><Filter>ViewModels</Filter></ClInclude>
+    <ClInclude Include="TrackingsViewModel.h"><Filter>ViewModels</Filter></ClInclude>
+    <ClInclude Include="AircraftTrackingViewModel.h"><Filter>ViewModels</Filter></ClInclude>
   </ItemGroup>
 
   <ItemGroup>

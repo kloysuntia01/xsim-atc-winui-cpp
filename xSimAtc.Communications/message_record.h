@@ -1,7 +1,8 @@
 #pragma once
 
-#include <guiddef.h>
-#include <string>
+#include "pch.h"
+//#include <guiddef.h>
+//#include <string>
 
 namespace xsim::communications
 {

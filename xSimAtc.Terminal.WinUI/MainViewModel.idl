@@ -18,8 +18,10 @@ namespace xSimAtc_Terminal_WinUI
         ViewContainer SelectedView{ get; };
 
         event Windows.Foundation.EventHandler<Object> NavigateToTowerRequested;
+        event Windows.Foundation.EventHandler<Object> NavigateToTrackingsRequested;
 
         void NavigateToTower();
+        void NavigateToTrackings();
         void SelectView(ViewContainer view);
     }
 }

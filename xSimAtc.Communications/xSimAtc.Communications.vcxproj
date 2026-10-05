@@ -32,20 +32,29 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;$(MSBuildThisFileDirectory)..\xSimAtc.Aircrafts;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="aircraft_mediator.cpp" />
     <ClCompile Include="communication_checkpoint.cpp" />
     <ClCompile Include="message_queue.cpp" />
     <ClCompile Include="pch.cpp"><PrecompiledHeader>Create</PrecompiledHeader></ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="aircraft_mediator.h" />
     <ClInclude Include="communication_checkpoint.h" />
     <ClInclude Include="communication_record.h" />
     <ClInclude Include="message_queue.h" />
     <ClInclude Include="message_record.h" />
+    <ClInclude Include="tracking_state.h" />
+    <ClInclude Include="..\xSimAtc.Aircrafts\Communication\communication_request.h" />
     <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\xSimAtc.Aircrafts\xSimAtc.Aircrafts.vcxproj">
+      <Project>{1ed9a9b3-1aca-4796-ba1f-b28a540c0de1}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup><Text Include="CMakeLists.txt" /></ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

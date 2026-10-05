@@ -20,6 +20,7 @@ add_executable(
     xSimAtc.Aircrafts.Tests
     aircraft_tests.cpp
     transponder_tests.cpp
+    chain_of_responsibility_tests.cpp
 )
 
 target_link_libraries(

@@ -15,5 +15,7 @@ namespace xsim::aircrafts
 
         [[nodiscard]]
         virtual const std::string& call_sign() const noexcept = 0;
+
+        virtual void tick() = 0;
     };
 }

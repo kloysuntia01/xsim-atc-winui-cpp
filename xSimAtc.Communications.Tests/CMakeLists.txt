@@ -19,6 +19,7 @@ FetchContent_MakeAvailable(googletest)
 add_executable(
     xSimAtc.Communications.Tests
     communication_checkpoint_tests.cpp
+    tracking_state_tests.cpp
 )
 
 target_precompile_headers(
