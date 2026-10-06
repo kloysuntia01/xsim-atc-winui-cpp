@@ -1,0 +1,26 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    runtimeclass AirfieldAwareViewTemplateSelector :
+        Microsoft.UI.Xaml.Controls.DataTemplateSelector
+    {
+        AirfieldAwareViewTemplateSelector();
+
+        Microsoft.UI.Xaml.DataTemplate TowerTemplate
+        {
+            get;
+            set;
+        };
+
+        Microsoft.UI.Xaml.DataTemplate TrackingsTemplate
+        {
+            get;
+            set;
+        };
+
+        Microsoft.UI.Xaml.DataTemplate AirfieldTemplate
+        {
+            get;
+            set;
+        };
+    }
+}

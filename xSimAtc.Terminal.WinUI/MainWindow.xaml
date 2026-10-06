@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Window
     x:Class="xSimAtc_Terminal_WinUI.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -6,32 +6,127 @@
     Title="xSimAtc.Terminal.WinUI">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <SplitView
+            x:Name="NavigationSplitView"
+            CompactPaneLength="56"
+            DisplayMode="CompactOverlay"
+            IsPaneOpen="False"
+            OpenPaneLength="220"
+            PanePlacement="Left">
 
-        <StackPanel
-            Orientation="Horizontal"
-            Padding="12"
-            Spacing="12">
+            <SplitView.Pane>
+                <Border
+                    BorderThickness="0,0,1,0"
+                    BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}">
 
-            <TextBlock
-                VerticalAlignment="Center"
-                FontSize="24"
-                Text="{Binding Title}" />
+                    <Grid Width="220">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-            <Button
-                Content="Tower"
-                Click="OnTowerClick" />
+                        <!-- Keep the app/menu container together in the rail. -->
+                        <Grid
+                            Height="56"
+                            Padding="8,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="40" />
+                            </Grid.ColumnDefinitions>
 
-            <Button
-                Content="Trackings"
-                Click="OnTrackingsClick" />
-        </StackPanel>
+                            <Button
+                                x:Name="NavigationToggleButton"
+                                Width="40"
+                                Height="40"
+                                Padding="0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Click="OnNavigationToggleClick"
+                                ToolTipService.ToolTip="Open navigation">
+                                <FontIcon Glyph="&#xE700;" />
+                            </Button>
 
-        <ContentControl
-            Grid.Row="1"
-            Content="{Binding SelectedView.Content}" />
+
+                            <Button
+                                x:Name="PinNavigationButton"
+                                Grid.Column="2"
+                                Width="40"
+                                Height="40"
+                                Padding="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Click="OnPinNavigationClick"
+                                ToolTipService.ToolTip="Pin navigation">
+                                <FontIcon
+                                    x:Name="PinNavigationIcon"
+                                    Glyph="&#xE718;" />
+                            </Button>
+                        </Grid>
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Padding="8,8,8,12"
+                            Spacing="8">
+
+                            <Button
+                                Height="44"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Command="{Binding NavigateToTowerCommand}"
+                                ToolTipService.ToolTip="Tower">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon
+                                        Width="40"
+                                        Glyph="&#xE80F;" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="Tower" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button
+                                Height="44"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Command="{Binding NavigateToTrackingsCommand}"
+                                ToolTipService.ToolTip="Trackings">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon
+                                        Width="40"
+                                        Glyph="&#xE81D;" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="Trackings" />
+                                </StackPanel>
+                            </Button>
+<Button
+                                Height="44"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                Command="{Binding NavigateToAirfieldCommand}"
+                                ToolTipService.ToolTip="Airfield">
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon
+                                        Width="40"
+                                        Glyph="&#xE81D;" />
+                                    <TextBlock
+                                        Margin="12,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Text="Airfield" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </SplitView.Pane>
+
+            <ContentControl
+                Content="{Binding SelectedViewModel}"
+                ContentTemplateSelector="{StaticResource ViewTemplateSelector}" />
+        </SplitView>
     </Grid>
 </Window>
+

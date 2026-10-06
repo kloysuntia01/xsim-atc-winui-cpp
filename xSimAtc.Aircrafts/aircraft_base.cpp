@@ -11,6 +11,7 @@
 #include "Engine/position_handler.h"
 #include "Engine/speed_handler.h"
 #include "Engine/throttle_handler.h"
+#include "States/state_chain.h"
 #include "transponder_signal.h"
 
 #include <objbase.h>
@@ -48,6 +49,7 @@ namespace xsim::aircrafts
 
         build_engine_chain();
         build_communication_chain();
+        build_state_chain();
     }
 
     const GUID& AircraftBase::id() const noexcept
@@ -119,6 +121,42 @@ namespace xsim::aircrafts
         return last_received_;
     }
 
+    AircraftPhase AircraftBase::phase() const noexcept
+    {
+        return current_phase_;
+    }
+
+    bool AircraftBase::request_transition(
+        AircraftPhase requested)
+    {
+        if (!state_chain_)
+        {
+            return false;
+        }
+
+        StateRequest request{ current_phase_, requested };
+        state_chain_->handle(request);
+
+        if (!request.allowed)
+        {
+            return false;
+        }
+
+        current_phase_ = requested;
+        return true;
+    }
+
+    AircraftClocks& AircraftBase::clocks() noexcept
+    {
+        return clocks_;
+    }
+
+    const AircraftClocks& AircraftBase::clocks() const noexcept
+    {
+        return clocks_;
+    }
+
+
     void AircraftBase::build_engine_chain()
     {
         auto throttle = std::make_shared<ThrottleHandler>();
@@ -133,6 +171,11 @@ namespace xsim::aircrafts
         speed->set_next(position);
 
         engine_chain_ = std::move(throttle);
+    }
+
+    void AircraftBase::build_state_chain()
+    {
+        state_chain_ = make_state_chain();
     }
 
     void AircraftBase::build_communication_chain()

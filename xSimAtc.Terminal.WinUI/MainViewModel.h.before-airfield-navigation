@@ -1,0 +1,66 @@
+#pragma once
+
+#include "MainViewModel.g.h"
+#include "ModelBase.h"
+
+namespace winrt::xSimAtc_Terminal_WinUI::implementation
+{
+    struct MainViewModel :
+        MainViewModelT<MainViewModel>,
+        xsim::terminal::models::ModelBase
+    {
+        MainViewModel();
+
+        Windows::Foundation::IInspectable SelectedViewModel() const;
+
+        Microsoft::UI::Xaml::Input::ICommand
+        NavigateToTowerCommand() const;
+
+        Microsoft::UI::Xaml::Input::ICommand
+        NavigateToTrackingsCommand() const;
+
+        winrt::event_token NavigateToTowerRequested(
+            Windows::Foundation::EventHandler<
+                Windows::Foundation::IInspectable> const& handler);
+
+        void NavigateToTowerRequested(
+            winrt::event_token const& token) noexcept;
+
+        winrt::event_token NavigateToTrackingsRequested(
+            Windows::Foundation::EventHandler<
+                Windows::Foundation::IInspectable> const& handler);
+
+        void NavigateToTrackingsRequested(
+            winrt::event_token const& token) noexcept;
+
+        void SelectViewModel(
+            Windows::Foundation::IInspectable const& view_model);
+
+    private:
+        Windows::Foundation::IInspectable selected_view_model_{ nullptr };
+
+        Microsoft::UI::Xaml::Input::ICommand
+            navigate_to_tower_command_{ nullptr };
+
+        Microsoft::UI::Xaml::Input::ICommand
+            navigate_to_trackings_command_{ nullptr };
+
+        winrt::event<
+            Windows::Foundation::EventHandler<
+                Windows::Foundation::IInspectable>>
+            navigate_to_tower_requested_;
+
+        winrt::event<
+            Windows::Foundation::EventHandler<
+                Windows::Foundation::IInspectable>>
+            navigate_to_trackings_requested_;
+    };
+}
+
+namespace winrt::xSimAtc_Terminal_WinUI::factory_implementation
+{
+    struct MainViewModel :
+        MainViewModelT<MainViewModel, implementation::MainViewModel>
+    {
+    };
+}

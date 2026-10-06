@@ -1,0 +1,98 @@
+﻿#pragma once
+
+#include "airfield_movement_route_binding.h"
+
+#include <string>
+#include <vector>
+#include <functional>
+#include <utility>
+
+namespace xsim::airfields
+{
+    class AirfieldTaxiRuntime final
+    {
+    public:
+        bool load_route(
+            const std::vector<std::string>& selected_nodes)
+        {
+            selected_nodes_ = selected_nodes;
+
+            return movement_route_binding::apply_selected_route(
+                movement_,
+                selected_nodes_);
+        }
+
+        bool start()
+        {
+            if (selected_nodes_.size() < 2)
+            {
+                return false;
+            }
+
+            movement_.start();
+            return movement_.is_running();
+        }
+
+        bool load_and_start(
+            const std::vector<std::string>& selected_nodes)
+        {
+            selected_nodes_ = selected_nodes;
+
+            return movement_route_binding::apply_and_start_selected_route(
+                movement_,
+                selected_nodes_);
+        }
+
+        void advance(double segment_delta)
+        {
+            movement_.advance(segment_delta);
+        }
+
+        void stop()
+        {
+            movement_.stop();
+        }
+
+        [[nodiscard]]
+        const AirfieldPosition& position() const noexcept
+        {
+            return movement_.position();
+        }
+
+        [[nodiscard]]
+        bool is_running() const noexcept
+        {
+            return movement_.is_running();
+        }
+
+        [[nodiscard]]
+        bool is_completed() const noexcept
+        {
+            return movement_.is_completed();
+        }
+
+        [[nodiscard]]
+        const std::vector<std::string>& selected_nodes() const noexcept
+        {
+            return selected_nodes_;
+        }
+
+        void set_completed_callback(
+            std::function<void()> callback)
+        {
+            movement_.set_completed_callback(
+                std::move(callback));
+        }
+
+        [[nodiscard]]
+        AirfieldMovement& movement() noexcept
+        {
+            return movement_;
+        }
+
+    private:
+        std::vector<std::string> selected_nodes_;
+        AirfieldMovement movement_;
+    };
+}
+

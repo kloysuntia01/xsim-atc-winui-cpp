@@ -48,6 +48,18 @@
     <ClInclude Include="Communication\active_handler.h" />
     <ClInclude Include="Communication\handoff_handler.h" />
     <ClInclude Include="Communication\completion_handler.h" />
+    <ClInclude Include="States\aircraft_phase.h" />
+    <ClInclude Include="States\completed_handler.h" />
+    <ClInclude Include="States\holding_handler.h" />
+    <ClInclude Include="States\incoming_handler.h" />
+    <ClInclude Include="States\in_position_handler.h" />
+    <ClInclude Include="States\landing_handler.h" />
+    <ClInclude Include="States\outbound_handler.h" />
+    <ClInclude Include="States\ready_handler.h" />
+    <ClInclude Include="States\state_chain.h" />
+    <ClInclude Include="States\state_request.h" />
+    <ClInclude Include="States\taking_off_handler.h" />
+    <ClInclude Include="States\taxi_handler.h" />
     <ClInclude Include="transponder.h" />
     <ClInclude Include="transponder_signal.h" />
   </ItemGroup>

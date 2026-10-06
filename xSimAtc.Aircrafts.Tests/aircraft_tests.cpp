@@ -41,4 +41,64 @@ namespace xsim::aircrafts::tests
                 sizeof(GUID)),
             0);
     }
+
+
+    TEST(AircraftTests, AircraftStartsReady)
+    {
+        Aircraft aircraft{ "FDX606" };
+
+        EXPECT_EQ(
+            aircraft.phase(),
+            AircraftPhase::Ready);
+    }
+
+    TEST(AircraftTests, AircraftCanTransitionReadyToTaxi)
+    {
+        Aircraft aircraft{ "FDX606" };
+
+        const auto transitioned = aircraft.request_transition(
+            AircraftPhase::Taxi);
+
+        EXPECT_TRUE(transitioned);
+        EXPECT_EQ(
+            aircraft.phase(),
+            AircraftPhase::Taxi);
+    }
+
+    TEST(AircraftTests, AircraftRejectsReadyToLanding)
+    {
+        Aircraft aircraft{ "FDX606" };
+
+        const auto transitioned = aircraft.request_transition(
+            AircraftPhase::Landing);
+
+        EXPECT_FALSE(transitioned);
+    }
+
+    TEST(AircraftTests, AircraftPhaseChangesOnlyWhenStateChainAllowsIt)
+    {
+        Aircraft aircraft{ "FDX606" };
+
+        EXPECT_FALSE(aircraft.request_transition(
+            AircraftPhase::Landing));
+        EXPECT_EQ(
+            aircraft.phase(),
+            AircraftPhase::Ready);
+
+        EXPECT_TRUE(aircraft.request_transition(
+            AircraftPhase::Taxi));
+        EXPECT_EQ(
+            aircraft.phase(),
+            AircraftPhase::Taxi);
+    }
+
+
+    TEST(AircraftTests, AircraftStartsWithNoClocks)
+    {
+        Aircraft aircraft{ "FDX606" };
+
+        EXPECT_TRUE(aircraft.clocks().empty());
+        EXPECT_EQ(aircraft.clocks().size(), 0u);
+    }
+
 }

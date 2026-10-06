@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "MainWindow.xaml.h"
-#include "TowerView.xaml.h"
-#include "TrackingsView.xaml.h"
 #include "TrackingsViewModel.h"
 
 #if __has_include("MainWindow.g.cpp")
@@ -13,6 +11,7 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
     MainWindow::MainWindow()
     {
         InitializeComponent();
+        ApplyNavigationMode();
     }
 
     MainWindow::MainWindow(
@@ -29,21 +28,15 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
             .as<Microsoft::UI::Xaml::FrameworkElement>()
             .DataContext(main_view_model_);
 
+        ApplyNavigationMode();
+
         main_view_model_.NavigateToTowerRequested(
             [this](
                 Windows::Foundation::IInspectable const&,
                 Windows::Foundation::IInspectable const&)
             {
-                auto tower_view = winrt::make<TowerView>();
-
-                tower_view
-                    .as<Microsoft::UI::Xaml::FrameworkElement>()
-                    .DataContext(tower_view_model_);
-
-                auto container =
-                    winrt::make<ViewContainer>(L"Tower", tower_view);
-
-                main_view_model_.SelectView(container);
+                CloseNavigationFlyout();
+                main_view_model_.SelectViewModel(tower_view_model_);
             });
 
         main_view_model_.NavigateToTrackingsRequested(
@@ -51,35 +44,69 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
                 Windows::Foundation::IInspectable const&,
                 Windows::Foundation::IInspectable const&)
             {
-                // Trackings is view-scoped. Every visit gets a fresh VM that
-                // hydrates from Msg.Q and then subscribes to live Rx changes.
+                CloseNavigationFlyout();
+
+                // Trackings remains view-scoped. Each navigation creates a
+                // fresh VM that hydrates from Msg.Q and subscribes to Rx.
                 auto trackings_view_model =
                     winrt::make<TrackingsViewModel>(message_queue_);
 
-                auto trackings_view = winrt::make<TrackingsView>();
-
-                trackings_view
-                    .as<Microsoft::UI::Xaml::FrameworkElement>()
-                    .DataContext(trackings_view_model);
-
-                auto container =
-                    winrt::make<ViewContainer>(L"Trackings", trackings_view);
-
-                main_view_model_.SelectView(container);
+                main_view_model_.SelectViewModel(trackings_view_model);
             });
+
+        // Initial route.
+        main_view_model_.SelectViewModel(tower_view_model_);
     }
 
-    void MainWindow::OnTowerClick(
+    void MainWindow::OnNavigationToggleClick(
         Windows::Foundation::IInspectable const&,
         Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
-        main_view_model_.NavigateToTower();
+        if (navigation_pinned_)
+        {
+            return;
+        }
+
+        NavigationSplitView().IsPaneOpen(
+            !NavigationSplitView().IsPaneOpen());
     }
 
-    void MainWindow::OnTrackingsClick(
+    void MainWindow::OnPinNavigationClick(
         Windows::Foundation::IInspectable const&,
         Microsoft::UI::Xaml::RoutedEventArgs const&)
     {
-        main_view_model_.NavigateToTrackings();
+        navigation_pinned_ = !navigation_pinned_;
+        ApplyNavigationMode();
+    }
+
+    void MainWindow::ApplyNavigationMode()
+    {
+        if (navigation_pinned_)
+        {
+            NavigationSplitView().DisplayMode(
+                Microsoft::UI::Xaml::Controls::SplitViewDisplayMode::CompactInline);
+            NavigationSplitView().IsPaneOpen(true);
+            PinNavigationIcon().Glyph(L"\uE77A");
+            Microsoft::UI::Xaml::Controls::ToolTipService::SetToolTip(
+                PinNavigationButton(),
+                winrt::box_value(L"Unpin navigation"));
+            return;
+        }
+
+        NavigationSplitView().DisplayMode(
+            Microsoft::UI::Xaml::Controls::SplitViewDisplayMode::CompactOverlay);
+        NavigationSplitView().IsPaneOpen(false);
+        PinNavigationIcon().Glyph(L"\uE718");
+        Microsoft::UI::Xaml::Controls::ToolTipService::SetToolTip(
+            PinNavigationButton(),
+            winrt::box_value(L"Pin navigation"));
+    }
+
+    void MainWindow::CloseNavigationFlyout()
+    {
+        if (!navigation_pinned_)
+        {
+            NavigationSplitView().IsPaneOpen(false);
+        }
     }
 }

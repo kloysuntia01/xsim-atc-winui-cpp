@@ -1,0 +1,12 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [default_interface]
+    runtimeclass ViewTemplateSelector :
+        Microsoft.UI.Xaml.Controls.DataTemplateSelector
+    {
+        ViewTemplateSelector();
+
+        Microsoft.UI.Xaml.DataTemplate TowerTemplate;
+        Microsoft.UI.Xaml.DataTemplate TrackingsTemplate;
+    }
+}

@@ -18,15 +18,20 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
             xSimAtc_Terminal_WinUI::TowerViewModel const& tower_view_model,
             std::shared_ptr<xsim::communications::MessageQueue> message_queue);
 
-        void OnTowerClick(
+        void OnNavigationToggleClick(
             Windows::Foundation::IInspectable const&,
             Microsoft::UI::Xaml::RoutedEventArgs const&);
 
-        void OnTrackingsClick(
+        void OnPinNavigationClick(
             Windows::Foundation::IInspectable const&,
             Microsoft::UI::Xaml::RoutedEventArgs const&);
 
     private:
+        void ApplyNavigationMode();
+        void CloseNavigationFlyout();
+
+        bool navigation_pinned_{ false };
+
         xSimAtc_Terminal_WinUI::MainViewModel main_view_model_{ nullptr };
         xSimAtc_Terminal_WinUI::TowerViewModel tower_view_model_{ nullptr };
         std::shared_ptr<xsim::communications::MessageQueue> message_queue_;

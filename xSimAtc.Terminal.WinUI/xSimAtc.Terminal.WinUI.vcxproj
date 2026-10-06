@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
@@ -103,6 +103,8 @@
     <ClInclude Include="TrackingTransponder.h" />
 
     <ClInclude Include="MainViewModel.h" />
+    <ClInclude Include="RelayCommand.h" />
+    <ClInclude Include="ViewTemplateSelector.h" />
     <ClInclude Include="TowerViewModel.h" />
     <ClInclude Include="TrackingsViewModel.h" />
     <ClInclude Include="AircraftTrackingViewModel.h" />
@@ -127,6 +129,7 @@
     <ClCompile Include="TrackingTransponder.cpp" />
 
     <ClCompile Include="MainViewModel.cpp" />
+    <ClCompile Include="ViewTemplateSelector.cpp" />
     <ClCompile Include="TowerViewModel.cpp" />
     <ClCompile Include="TrackingsViewModel.cpp" />
     <ClCompile Include="AircraftTrackingViewModel.cpp" />
@@ -140,6 +143,7 @@
   <ItemGroup>
     <Midl Include="MainWindow.idl"><SubType>Code</SubType><DependentUpon>MainWindow.xaml</DependentUpon></Midl>
     <Midl Include="MainViewModel.idl"><SubType>Code</SubType></Midl>
+    <Midl Include="ViewTemplateSelector.idl"><SubType>Code</SubType></Midl>
     <Midl Include="TowerView.idl"><SubType>Code</SubType><DependentUpon>TowerView.xaml</DependentUpon></Midl>
     <Midl Include="TowerViewModel.idl"><SubType>Code</SubType></Midl>
     <Midl Include="TrackingsView.idl"><SubType>Code</SubType><DependentUpon>TrackingsView.xaml</DependentUpon></Midl>
@@ -169,4 +173,35 @@
 
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
+  <!-- xSimAtc Airfield navigation slice -->
+  <ItemGroup>
+    <Midl Include="AirfieldViewModel.idl" />
+    <Midl Include="AirfieldAwareViewTemplateSelector.idl" />
+
+    <ClInclude Include="AirfieldNavigationCommand.h" />
+    <ClInclude Include="AirfieldAwareViewTemplateSelector.h" />
+
+    <ClCompile Include="MainViewModel.Airfield.cpp" />
+    <ClCompile Include="AirfieldAwareViewTemplateSelector.cpp" />
+  </ItemGroup>
+  <!-- xSimAtc AirfieldView registration fix -->
+  <ItemGroup>
+    <Midl Include="AirfieldView.idl"><SubType>Code</SubType><DependentUpon>AirfieldView.xaml</DependentUpon></Midl>
+    <Page Include="AirfieldView.xaml" />
+    <ClInclude Include="AirfieldView.xaml.h"><DependentUpon>AirfieldView.xaml</DependentUpon></ClInclude>
+    <ClCompile Include="AirfieldView.xaml.cpp"><DependentUpon>AirfieldView.xaml</DependentUpon></ClCompile>
+    <ClInclude Include="AirfieldViewModel.h" />
+    <ClCompile Include="AirfieldViewModel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Airfield\airfield-layout.svg">
+      <DeploymentContent>true</DeploymentContent>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content></ItemGroup>
 </Project>
+
+
+
+
+
+

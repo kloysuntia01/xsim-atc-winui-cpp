@@ -1,0 +1,159 @@
+﻿#pragma once
+
+#include "airfield_graph.h"
+#include "Positions/airfield_position.h"
+
+#include <array>
+#include <string>
+#include <string_view>
+#include <unordered_map>
+#include <vector>
+
+namespace xsim::airfields::taxiway_layout
+{
+    struct TaxiwayNode final
+    {
+        std::string_view id;
+        AirfieldPosition position;
+    };
+
+    // Normalized coordinates against the current Option-B 1000x700 SVG canvas.
+    //
+    // Logical ATC decision points:
+    //   F, H, J, 18L
+    //
+    // Physical taxiway/intersection points:
+    //   F1, H1, J1
+    //
+    // Keeping these separate preserves the existing semantic split:
+    // AirfieldNode = controller decision point
+    // intermediate graph node = physical taxiway routing point
+    inline constexpr std::array<TaxiwayNode, 20> Nodes{
+        // Existing controller / primary-route nodes.
+        TaxiwayNode{ "F",   { 0.635, 0.355 } },
+        TaxiwayNode{ "F1",  { 0.595, 0.329 } },
+        TaxiwayNode{ "H",   { 0.570, 0.620 } },
+        TaxiwayNode{ "H1",  { 0.470, 0.729 } },
+        TaxiwayNode{ "J",   { 0.395, 0.735 } },
+        TaxiwayNode{ "J1",  { 0.400, 0.835 } },
+        TaxiwayNode{ "18L", { 0.350, 0.895 } },
+
+        // Extended Option-B taxiway turns / intersections.
+        TaxiwayNode{ "B",   { 0.120, 0.164 } },
+        TaxiwayNode{ "C",   { 0.250, 0.164 } },
+        TaxiwayNode{ "D",   { 0.750, 0.164 } },
+        TaxiwayNode{ "E",   { 0.390, 0.329 } },
+        TaxiwayNode{ "G",   { 0.610, 0.329 } },
+        TaxiwayNode{ "K",   { 0.820, 0.329 } },
+        TaxiwayNode{ "L",   { 0.250, 0.729 } },
+        TaxiwayNode{ "M",   { 0.400, 0.729 } },
+        TaxiwayNode{ "N",   { 0.600, 0.729 } },
+        TaxiwayNode{ "P",   { 0.180, 0.729 } },
+        TaxiwayNode{ "Q",   { 0.400, 0.779 } },
+        TaxiwayNode{ "R",   { 0.600, 0.779 } },
+        TaxiwayNode{ "S",   { 0.750, 0.729 } }
+    };
+
+    inline AirfieldGraph build_graph()
+    {
+        AirfieldGraph graph;
+
+        // Primary controller route.
+        graph.add_edge("F", "F1");
+        graph.add_edge("F1", "H");
+        graph.add_edge("H", "H1");
+        graph.add_edge("H1", "J");
+        graph.add_edge("J", "J1");
+        graph.add_edge("J1", "18L");
+
+        // Upper taxiway network.
+        graph.add_edge("B", "C");
+        graph.add_edge("C", "E");
+        graph.add_edge("E", "G");
+        graph.add_edge("G", "K");
+        graph.add_edge("K", "D");
+
+        // Tie the upper network into the primary route.
+        graph.add_edge("G", "F");
+        graph.add_edge("E", "H1");
+
+        // Lower taxiway network.
+        graph.add_edge("P", "L");
+        graph.add_edge("L", "M");
+        graph.add_edge("M", "N");
+        graph.add_edge("N", "S");
+
+        graph.add_edge("M", "Q");
+        graph.add_edge("Q", "J1");
+
+        graph.add_edge("N", "R");
+        graph.add_edge("R", "S");
+
+        // Vertical/perimeter connectors.
+        graph.add_edge("C", "L");
+        graph.add_edge("D", "S");
+
+        // Connect the lower network to the controller route.
+        graph.add_edge("M", "J");
+        graph.add_edge("N", "H");
+
+        return graph;
+    }
+
+    inline const TaxiwayNode* find_node(std::string_view id) noexcept
+    {
+        for (const auto& node : Nodes)
+        {
+            if (node.id == id)
+            {
+                return &node;
+            }
+        }
+
+        return nullptr;
+    }
+
+    inline std::vector<std::string> expand_control_route(
+        const AirfieldGraph& graph,
+        const std::vector<std::string>& control_nodes)
+    {
+        if (control_nodes.empty())
+        {
+            return {};
+        }
+
+        if (control_nodes.size() == 1)
+        {
+            return control_nodes;
+        }
+
+        std::vector<std::string> expanded;
+
+        for (std::size_t index = 0; index + 1 < control_nodes.size(); ++index)
+        {
+            auto segment = graph.route(
+                control_nodes[index],
+                control_nodes[index + 1]);
+
+            if (segment.empty())
+            {
+                return {};
+            }
+
+            if (!expanded.empty())
+            {
+                segment.erase(segment.begin());
+            }
+
+            expanded.insert(
+                expanded.end(),
+                segment.begin(),
+                segment.end());
+        }
+
+        return expanded;
+    }
+}
+
+
+

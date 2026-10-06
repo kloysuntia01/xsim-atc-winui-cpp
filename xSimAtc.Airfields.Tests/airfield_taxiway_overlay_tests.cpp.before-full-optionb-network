@@ -1,0 +1,29 @@
+#include <gtest/gtest.h>
+
+#include "../xSimAtc.Airfields/airfield_taxiway_overlay.h"
+
+namespace xsim::airfields::tests
+{
+    TEST(AirfieldTaxiwayOverlayTests, ClassifiesControllerNodes)
+    {
+        EXPECT_TRUE(taxiway_overlay::is_control_node("F"));
+        EXPECT_TRUE(taxiway_overlay::is_control_node("H"));
+        EXPECT_TRUE(taxiway_overlay::is_control_node("J"));
+        EXPECT_TRUE(taxiway_overlay::is_control_node("18L"));
+
+        EXPECT_FALSE(taxiway_overlay::is_control_node("F1"));
+        EXPECT_FALSE(taxiway_overlay::is_control_node("H1"));
+        EXPECT_FALSE(taxiway_overlay::is_control_node("J1"));
+    }
+
+    TEST(AirfieldTaxiwayOverlayTests, ReturnsOnlyIntermediateTaxiwayNodes)
+    {
+        const auto nodes = taxiway_overlay::intermediate_nodes();
+
+        ASSERT_EQ(nodes.size(), 3u);
+
+        EXPECT_EQ(nodes[0]->id, "F1");
+        EXPECT_EQ(nodes[1]->id, "H1");
+        EXPECT_EQ(nodes[2]->id, "J1");
+    }
+}

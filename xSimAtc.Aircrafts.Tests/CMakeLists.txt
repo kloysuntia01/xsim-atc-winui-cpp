@@ -1,26 +1,17 @@
-include(FetchContent)
-
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG main
-)
-
-set(
-    gtest_force_shared_crt
-    ON
-    CACHE BOOL
-    ""
-    FORCE
-)
-
-FetchContent_MakeAvailable(googletest)
-
 add_executable(
     xSimAtc.Aircrafts.Tests
     aircraft_tests.cpp
     transponder_tests.cpp
     chain_of_responsibility_tests.cpp
+    state_chain_tests.cpp
+    collection_tests.cpp
+    aircraft_clock_tests.cpp
+)
+
+target_precompile_headers(
+    xSimAtc.Aircrafts.Tests
+    PRIVATE
+        pch.h
 )
 
 target_link_libraries(

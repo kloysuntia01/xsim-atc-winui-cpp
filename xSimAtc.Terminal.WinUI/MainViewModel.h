@@ -1,34 +1,25 @@
-#pragma once
+﻿#pragma once
 
-#include "ViewContainer.g.h"
 #include "MainViewModel.g.h"
 #include "ModelBase.h"
 
 namespace winrt::xSimAtc_Terminal_WinUI::implementation
 {
-    struct ViewContainer : ViewContainerT<ViewContainer>
-    {
-        ViewContainer(
-            winrt::hstring title,
-            Windows::Foundation::IInspectable content);
-
-        winrt::hstring Title() const;
-        Windows::Foundation::IInspectable Content() const;
-
-    private:
-        winrt::hstring title_;
-        Windows::Foundation::IInspectable content_{ nullptr };
-    };
-
     struct MainViewModel :
         MainViewModelT<MainViewModel>,
         xsim::terminal::models::ModelBase
     {
-        MainViewModel() = default;
+        MainViewModel();
 
-        winrt::hstring Title() const;
+        Windows::Foundation::IInspectable SelectedViewModel() const;
 
-        xSimAtc_Terminal_WinUI::ViewContainer SelectedView() const;
+        Microsoft::UI::Xaml::Input::ICommand
+        NavigateToTowerCommand() const;
+
+        Microsoft::UI::Xaml::Input::ICommand
+        NavigateToTrackingsCommand() const;
+        Microsoft::UI::Xaml::Input::ICommand         NavigateToAirfieldCommand();
+
 
         winrt::event_token NavigateToTowerRequested(
             Windows::Foundation::EventHandler<
@@ -44,16 +35,20 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         void NavigateToTrackingsRequested(
             winrt::event_token const& token) noexcept;
 
-        void NavigateToTower();
-        void NavigateToTrackings();
-
-        void SelectView(
-            xSimAtc_Terminal_WinUI::ViewContainer const& view);
+        void SelectViewModel(
+            Windows::Foundation::IInspectable const& view_model);
 
     private:
-        xSimAtc_Terminal_WinUI::ViewContainer selected_view_{ nullptr };
+        Windows::Foundation::IInspectable selected_view_model_{ nullptr };
 
-        winrt::event<
+        Microsoft::UI::Xaml::Input::ICommand
+            navigate_to_tower_command_{ nullptr };
+
+        Microsoft::UI::Xaml::Input::ICommand
+            navigate_to_trackings_command_{ nullptr };
+
+            Microsoft::UI::Xaml::Input::ICommand navigate_to_airfield_command_{ nullptr };
+winrt::event<
             Windows::Foundation::EventHandler<
                 Windows::Foundation::IInspectable>>
             navigate_to_tower_requested_;
@@ -72,3 +67,5 @@ namespace winrt::xSimAtc_Terminal_WinUI::factory_implementation
     {
     };
 }
+
+

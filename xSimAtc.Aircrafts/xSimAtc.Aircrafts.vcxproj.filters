@@ -1,41 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Interfaces"><UniqueIdentifier>{A7042E00-4412-4BA7-9837-37A3BE95F2C1}</UniqueIdentifier></Filter>
-    <Filter Include="Chain"><UniqueIdentifier>{28563845-7A9B-4C7B-A81A-E36919738EA8}</UniqueIdentifier></Filter>
-    <Filter Include="Engine"><UniqueIdentifier>{CE2B72BA-437D-4E55-A9F3-9707A796B665}</UniqueIdentifier></Filter>
-    <Filter Include="Communication"><UniqueIdentifier>{56E1FD63-8211-4A0D-9A66-C789E54D5A18}</UniqueIdentifier></Filter>
+    <Filter Include="Chain">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Communication">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Aircrafts">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Transponder">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Collections">
+      <UniqueIdentifier>{A119A524-8B29-45CC-91C3-86C1D3F8B008}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
+
   <ItemGroup>
-    <ClCompile Include="aircraft.cpp" />
-    <ClCompile Include="aircraft_base.cpp" />
-    <ClCompile Include="transponder.cpp" />
+    <ClCompile Include="aircraft.cpp">
+      <Filter>Aircrafts</Filter>
+    </ClCompile>
+    <ClCompile Include="aircraft_base.cpp">
+      <Filter>Aircrafts</Filter>
+    </ClCompile>
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="transponder.cpp">
+      <Filter>Transponder</Filter>
+    </ClCompile>
   </ItemGroup>
+
   <ItemGroup>
-    <ClInclude Include="aircraft.h" />
-    <ClInclude Include="aircraft_base.h" />
-    <ClInclude Include="transponder_signal.h" />
-    <ClInclude Include="transponder.h" />
+    <ClInclude Include="aircraft.h">
+      <Filter>Aircrafts</Filter>
+    </ClInclude>
+    <ClInclude Include="aircraft_base.h">
+      <Filter>Aircrafts</Filter>
+    </ClInclude>
+    <ClInclude Include="aircraft_clock.h">
+      <Filter>Aircrafts</Filter>
+    </ClInclude>
+    <ClInclude Include="aircraft_clocks.h">
+      <Filter>Aircrafts</Filter>
+    </ClInclude>
+    <ClInclude Include="Collections\collection.h">
+      <Filter>Collections</Filter>
+    </ClInclude>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="i_aircraft.h"><Filter>Interfaces</Filter></ClInclude>
-    <ClInclude Include="i_aircraft_mediator.h"><Filter>Interfaces</Filter></ClInclude>
-    <ClInclude Include="i_mediator.h"><Filter>Interfaces</Filter></ClInclude>
-    <ClInclude Include="Chain\i_handler.h"><Filter>Chain</Filter></ClInclude>
-    <ClInclude Include="Chain\handler_base.h"><Filter>Chain</Filter></ClInclude>
-    <ClInclude Include="Engine\engine_request.h"><Filter>Engine</Filter></ClInclude>
-    <ClInclude Include="Engine\throttle_handler.h"><Filter>Engine</Filter></ClInclude>
-    <ClInclude Include="Engine\fuel_handler.h"><Filter>Engine</Filter></ClInclude>
-    <ClInclude Include="Engine\engine_state_handler.h"><Filter>Engine</Filter></ClInclude>
-    <ClInclude Include="Engine\speed_handler.h"><Filter>Engine</Filter></ClInclude>
-    <ClInclude Include="Engine\position_handler.h"><Filter>Engine</Filter></ClInclude>
-    <ClInclude Include="Communication\communication_request.h"><Filter>Communication</Filter></ClInclude>
-    <ClInclude Include="Communication\hailing_handler.h"><Filter>Communication</Filter></ClInclude>
-    <ClInclude Include="Communication\pairing_handler.h"><Filter>Communication</Filter></ClInclude>
-    <ClInclude Include="Communication\active_handler.h"><Filter>Communication</Filter></ClInclude>
-    <ClInclude Include="Communication\handoff_handler.h"><Filter>Communication</Filter></ClInclude>
-    <ClInclude Include="Communication\completion_handler.h"><Filter>Communication</Filter></ClInclude>
+    <ClInclude Include="transponder.h">
+      <Filter>Transponder</Filter>
+    </ClInclude>
+    <ClInclude Include="transponder_signal.h">
+      <Filter>Transponder</Filter>
+    </ClInclude>
+
+    <ClInclude Include="i_aircraft.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="i_aircraft_mediator.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="i_mediator.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+
+    <ClInclude Include="Chain\i_handler.h">
+      <Filter>Chain</Filter>
+    </ClInclude>
+    <ClInclude Include="Chain\handler_base.h">
+      <Filter>Chain</Filter>
+    </ClInclude>
+
+    <ClInclude Include="Engine\engine_request.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\throttle_handler.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\fuel_handler.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\engine_state_handler.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\speed_handler.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\position_handler.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+
+    <ClInclude Include="Communication\communication_request.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\hailing_handler.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\pairing_handler.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\active_handler.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\handoff_handler.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\completion_handler.h">
+      <Filter>Communication</Filter>
+    </ClInclude>
+
+    <ClInclude Include="States\aircraft_phase.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\completed_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\holding_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\incoming_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\in_position_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\landing_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\outbound_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\ready_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\state_chain.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\state_request.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\taking_off_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="States\taxi_handler.h">
+      <Filter>States</Filter>
+    </ClInclude>
   </ItemGroup>
+
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
   </ItemGroup>

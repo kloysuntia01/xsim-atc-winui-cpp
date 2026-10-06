@@ -1,0 +1,8 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [default_interface]
+    runtimeclass AirfieldViewModel
+    {
+        AirfieldViewModel();
+    }
+}

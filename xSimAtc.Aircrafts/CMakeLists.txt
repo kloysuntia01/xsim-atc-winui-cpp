@@ -6,6 +6,14 @@ add_library(
     transponder.cpp
 )
 
+target_sources(
+    xSimAtc.Aircrafts
+    PRIVATE
+        Collections/collection.h
+        aircraft_clock.h
+        aircraft_clocks.h
+)
+
 target_precompile_headers(
     xSimAtc.Aircrafts
     PRIVATE
@@ -39,3 +47,40 @@ if(MSVC)
             _SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING
     )
 endif()
+
+target_sources(
+    xSimAtc.Aircrafts
+    PRIVATE
+        ${AIRCRAFT_STATE_HEADERS}
+)
+
+source_group(
+    "States"
+    FILES
+        ${AIRCRAFT_STATE_HEADERS}
+)
+
+source_group(
+    "Collections"
+    FILES
+        Collections/collection.h
+)
+
+source_group(
+    "Aircrafts"
+    FILES
+        aircraft.cpp
+        aircraft.h
+        aircraft_base.cpp
+        aircraft_base.h
+        aircraft_clock.h
+        aircraft_clocks.h
+)
+
+source_group(
+    "Transponder"
+    FILES
+        transponder.cpp
+        transponder.h
+        transponder_signal.h
+)

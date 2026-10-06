@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Application
+    x:Class="xSimAtc_Terminal_WinUI.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:xSimAtc_Terminal_WinUI">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate
+                x:Key="TowerViewTemplate">
+                <local:TowerView />
+            </DataTemplate>
+
+            <DataTemplate
+                x:Key="TrackingsViewTemplate">
+                <local:TrackingsView />
+            </DataTemplate>
+
+            <local:ViewTemplateSelector
+                x:Key="ViewTemplateSelector"
+                TowerTemplate="{StaticResource TowerViewTemplate}"
+                TrackingsTemplate="{StaticResource TrackingsViewTemplate}" />
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

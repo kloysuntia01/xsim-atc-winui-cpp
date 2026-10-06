@@ -1,0 +1,270 @@
+#include "pch.h"
+#include "AirfieldView.xaml.h"
+
+#include <cstdint>
+
+#include <winrt/Microsoft.UI.Text.h>
+#include <winrt/Microsoft.UI.Xaml.Controls.h>
+#include <winrt/Microsoft.UI.Xaml.Media.h>
+#include <winrt/Microsoft.UI.Xaml.Shapes.h>
+
+namespace winrt::xSimAtc_Terminal_WinUI::implementation
+{
+    namespace
+    {
+        constexpr double canvas_width = 1000.0;
+        constexpr double canvas_height = 700.0;
+
+        Microsoft::UI::Xaml::Media::SolidColorBrush brush(
+            Windows::UI::Color color)
+        {
+            return Microsoft::UI::Xaml::Media::SolidColorBrush{ color };
+        }
+
+        Windows::UI::Color color(
+            std::uint8_t r,
+            std::uint8_t g,
+            std::uint8_t b,
+            std::uint8_t a = 255) noexcept
+        {
+            return Windows::UI::Color{ a, r, g, b };
+        }
+    }
+
+    AirfieldView::AirfieldView()
+    {
+        InitializeComponent();
+
+        view_model_ =
+            winrt::make<
+                winrt::xSimAtc_Terminal_WinUI::
+                    implementation::AirfieldViewModel>();
+
+        render_airfield();
+    }
+
+    double AirfieldView::screen_x(
+        double normalized) noexcept
+    {
+        return normalized * canvas_width;
+    }
+
+    double AirfieldView::screen_y(
+        double normalized) noexcept
+    {
+        return normalized * canvas_height;
+    }
+
+    void AirfieldView::render_airfield()
+    {
+        render_runways();
+        render_nodes();
+        render_towers();
+        render_aircraft();
+    }
+
+    void AirfieldView::render_runways()
+    {
+        const auto vm =
+            winrt::get_self<
+                winrt::xSimAtc_Terminal_WinUI::
+                    implementation::AirfieldViewModel>(
+                        view_model_);
+
+        const auto& airfield = vm->airfield();
+
+        for (const auto& runway : airfield.runways())
+        {
+            Microsoft::UI::Xaml::Shapes::Line line;
+
+            line.X1(screen_x(runway.north_end.x));
+            line.Y1(screen_y(runway.north_end.y));
+            line.X2(screen_x(runway.south_end.x));
+            line.Y2(screen_y(runway.south_end.y));
+
+            line.Stroke(brush(color(68, 72, 72)));
+            line.StrokeThickness(34.0);
+
+            AirfieldCanvas().Children().Append(line);
+
+            Microsoft::UI::Xaml::Shapes::Line center_line;
+
+            center_line.X1(screen_x(runway.north_end.x));
+            center_line.Y1(screen_y(runway.north_end.y));
+            center_line.X2(screen_x(runway.south_end.x));
+            center_line.Y2(screen_y(runway.south_end.y));
+
+            center_line.Stroke(brush(color(235, 235, 220)));
+            center_line.StrokeThickness(2.0);
+            center_line.StrokeDashArray().Append(8.0);
+            center_line.StrokeDashArray().Append(10.0);
+
+            AirfieldCanvas().Children().Append(center_line);
+
+            Microsoft::UI::Xaml::Controls::TextBlock label;
+            label.Text(winrt::to_hstring(runway.id));
+            label.Foreground(brush(color(255, 255, 255)));
+            label.FontSize(15.0);
+            label.FontWeight(
+                Microsoft::UI::Text::FontWeights::SemiBold());
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetLeft(
+                label,
+                screen_x(runway.north_end.x) - 35.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetTop(
+                label,
+                screen_y(runway.north_end.y) - 35.0);
+
+            AirfieldCanvas().Children().Append(label);
+        }
+    }
+
+    void AirfieldView::render_nodes()
+    {
+        const auto vm =
+            winrt::get_self<
+                winrt::xSimAtc_Terminal_WinUI::
+                    implementation::AirfieldViewModel>(
+                        view_model_);
+
+        const auto& airfield = vm->airfield();
+
+        for (const auto& node : airfield.nodes())
+        {
+            Microsoft::UI::Xaml::Shapes::Ellipse marker;
+
+            marker.Width(30.0);
+            marker.Height(30.0);
+            marker.Fill(brush(color(245, 196, 45)));
+            marker.Stroke(brush(color(30, 30, 30)));
+            marker.StrokeThickness(2.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetLeft(
+                marker,
+                screen_x(node.position.x) - 15.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetTop(
+                marker,
+                screen_y(node.position.y) - 15.0);
+
+            AirfieldCanvas().Children().Append(marker);
+
+            Microsoft::UI::Xaml::Controls::TextBlock label;
+            label.Text(winrt::to_hstring(node.id));
+            label.Foreground(brush(color(25, 25, 25)));
+            label.FontSize(12.0);
+            label.FontWeight(
+                Microsoft::UI::Text::FontWeights::Bold());
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetLeft(
+                label,
+                screen_x(node.position.x) - 10.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetTop(
+                label,
+                screen_y(node.position.y) - 9.0);
+
+            AirfieldCanvas().Children().Append(label);
+        }
+    }
+
+    void AirfieldView::render_towers()
+    {
+        const auto vm =
+            winrt::get_self<
+                winrt::xSimAtc_Terminal_WinUI::
+                    implementation::AirfieldViewModel>(
+                        view_model_);
+
+        const auto& airfield = vm->airfield();
+
+        for (const auto& tower : airfield.tower_markers())
+        {
+            Microsoft::UI::Xaml::Shapes::Ellipse marker;
+
+            marker.Width(44.0);
+            marker.Height(44.0);
+            marker.Fill(brush(color(64, 130, 188)));
+            marker.Stroke(brush(color(230, 240, 250)));
+            marker.StrokeThickness(3.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetLeft(
+                marker,
+                screen_x(tower.position.x) - 22.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetTop(
+                marker,
+                screen_y(tower.position.y) - 22.0);
+
+            AirfieldCanvas().Children().Append(marker);
+
+            Microsoft::UI::Xaml::Controls::TextBlock label;
+            label.Text(winrt::to_hstring(tower.id));
+            label.Foreground(brush(color(255, 255, 255)));
+            label.FontSize(14.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetLeft(
+                label,
+                screen_x(tower.position.x) + 28.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetTop(
+                label,
+                screen_y(tower.position.y) - 10.0);
+
+            AirfieldCanvas().Children().Append(label);
+        }
+    }
+
+    void AirfieldView::render_aircraft()
+    {
+        const auto vm =
+            winrt::get_self<
+                winrt::xSimAtc_Terminal_WinUI::
+                    implementation::AirfieldViewModel>(
+                        view_model_);
+
+        const auto& airfield = vm->airfield();
+
+        for (const auto& aircraft :
+             airfield.aircraft_markers())
+        {
+            Microsoft::UI::Xaml::Shapes::Rectangle marker;
+
+            marker.Width(18.0);
+            marker.Height(18.0);
+            marker.RadiusX(4.0);
+            marker.RadiusY(4.0);
+            marker.Fill(brush(color(230, 92, 69)));
+            marker.Stroke(brush(color(255, 255, 255)));
+            marker.StrokeThickness(2.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetLeft(
+                marker,
+                screen_x(aircraft.position.x) - 9.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetTop(
+                marker,
+                screen_y(aircraft.position.y) - 9.0);
+
+            AirfieldCanvas().Children().Append(marker);
+
+            Microsoft::UI::Xaml::Controls::TextBlock label;
+            label.Text(winrt::to_hstring(aircraft.call_sign));
+            label.Foreground(brush(color(255, 255, 255)));
+            label.FontSize(13.0);
+            label.FontWeight(
+                Microsoft::UI::Text::FontWeights::SemiBold());
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetLeft(
+                label,
+                screen_x(aircraft.position.x) + 14.0);
+
+            Microsoft::UI::Xaml::Controls::Canvas::SetTop(
+                label,
+                screen_y(aircraft.position.y) - 10.0);
+
+            AirfieldCanvas().Children().Append(label);
+        }
+    }
+}

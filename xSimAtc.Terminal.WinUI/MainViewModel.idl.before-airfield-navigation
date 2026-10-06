@@ -1,0 +1,20 @@
+namespace xSimAtc_Terminal_WinUI
+{
+    [Microsoft.UI.Xaml.Data.Bindable]
+    [default_interface]
+    runtimeclass MainViewModel :
+        Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        MainViewModel();
+
+        Object SelectedViewModel{ get; };
+
+        Microsoft.UI.Xaml.Input.ICommand NavigateToTowerCommand{ get; };
+        Microsoft.UI.Xaml.Input.ICommand NavigateToTrackingsCommand{ get; };
+
+        event Windows.Foundation.EventHandler<Object> NavigateToTowerRequested;
+        event Windows.Foundation.EventHandler<Object> NavigateToTrackingsRequested;
+
+        void SelectViewModel(Object viewModel);
+    }
+}

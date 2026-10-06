@@ -1,9 +1,6 @@
 #include "pch.h"
 #include "MainViewModel.h"
-
-#if __has_include("ViewContainer.g.cpp")
-#include "ViewContainer.g.cpp"
-#endif
+#include "RelayCommand.h"
 
 #if __has_include("MainViewModel.g.cpp")
 #include "MainViewModel.g.cpp"
@@ -11,33 +8,39 @@
 
 namespace winrt::xSimAtc_Terminal_WinUI::implementation
 {
-    ViewContainer::ViewContainer(
-        winrt::hstring title,
-        Windows::Foundation::IInspectable content)
-        : title_(std::move(title)),
-          content_(std::move(content))
+    MainViewModel::MainViewModel()
     {
+        navigate_to_tower_command_ =
+            winrt::make<xsim::terminal::commands::RelayCommand>(
+                [this](Windows::Foundation::IInspectable const&)
+                {
+                    navigate_to_tower_requested_(*this, nullptr);
+                });
+
+        navigate_to_trackings_command_ =
+            winrt::make<xsim::terminal::commands::RelayCommand>(
+                [this](Windows::Foundation::IInspectable const&)
+                {
+                    navigate_to_trackings_requested_(*this, nullptr);
+                });
     }
 
-    winrt::hstring ViewContainer::Title() const
+    Windows::Foundation::IInspectable
+    MainViewModel::SelectedViewModel() const
     {
-        return title_;
+        return selected_view_model_;
     }
 
-    Windows::Foundation::IInspectable ViewContainer::Content() const
+    Microsoft::UI::Xaml::Input::ICommand
+    MainViewModel::NavigateToTowerCommand() const
     {
-        return content_;
+        return navigate_to_tower_command_;
     }
 
-    winrt::hstring MainViewModel::Title() const
+    Microsoft::UI::Xaml::Input::ICommand
+    MainViewModel::NavigateToTrackingsCommand() const
     {
-        return L"xSimAtc";
-    }
-
-    xSimAtc_Terminal_WinUI::ViewContainer
-    MainViewModel::SelectedView() const
-    {
-        return selected_view_;
+        return navigate_to_trackings_command_;
     }
 
     winrt::event_token MainViewModel::NavigateToTowerRequested(
@@ -66,20 +69,10 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         navigate_to_trackings_requested_.remove(token);
     }
 
-    void MainViewModel::NavigateToTower()
+    void MainViewModel::SelectViewModel(
+        Windows::Foundation::IInspectable const& view_model)
     {
-        navigate_to_tower_requested_(*this, nullptr);
-    }
-
-    void MainViewModel::NavigateToTrackings()
-    {
-        navigate_to_trackings_requested_(*this, nullptr);
-    }
-
-    void MainViewModel::SelectView(
-        xSimAtc_Terminal_WinUI::ViewContainer const& view)
-    {
-        selected_view_ = view;
-        RaisePropertyChanged(L"SelectedView");
+        selected_view_model_ = view_model;
+        RaisePropertyChanged(L"SelectedViewModel");
     }
 }

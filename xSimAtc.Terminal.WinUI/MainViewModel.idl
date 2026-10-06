@@ -1,12 +1,5 @@
-namespace xSimAtc_Terminal_WinUI
+﻿namespace xSimAtc_Terminal_WinUI
 {
-    [Microsoft.UI.Xaml.Data.Bindable]
-    runtimeclass ViewContainer
-    {
-        String Title{ get; };
-        Object Content{ get; };
-    }
-
     [Microsoft.UI.Xaml.Data.Bindable]
     [default_interface]
     runtimeclass MainViewModel :
@@ -14,14 +7,16 @@ namespace xSimAtc_Terminal_WinUI
     {
         MainViewModel();
 
-        String Title{ get; };
-        ViewContainer SelectedView{ get; };
+        Object SelectedViewModel{ get; };
+
+        Microsoft.UI.Xaml.Input.ICommand NavigateToTowerCommand{ get; };
+        Microsoft.UI.Xaml.Input.ICommand NavigateToTrackingsCommand{ get; };
+        Microsoft.UI.Xaml.Input.ICommand NavigateToAirfieldCommand{ get; };
 
         event Windows.Foundation.EventHandler<Object> NavigateToTowerRequested;
         event Windows.Foundation.EventHandler<Object> NavigateToTrackingsRequested;
 
-        void NavigateToTower();
-        void NavigateToTrackings();
-        void SelectView(ViewContainer view);
+        void SelectViewModel(Object viewModel);
     }
 }
+
