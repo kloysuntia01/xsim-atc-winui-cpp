@@ -8,6 +8,8 @@
   </Folder>
   <Project Path="xSimAtc.Aircrafts.Tests/xSimAtc.Aircrafts.Tests.vcxproj" Id="26786923-8062-4de3-a40f-72907673cc7f" />
   <Project Path="xSimAtc.Aircrafts/xSimAtc.Aircrafts.vcxproj" Id="1ed9a9b3-1aca-4796-ba1f-b28a540c0de1" />
+  <Project Path="build/xSimAtc.Airfields.Tests/xSimAtc.Airfields.Tests.vcxproj" Id="e9e8eace-fbcd-32b4-a762-a714201fbf55" />
+  <Project Path="build/xSimAtc.Airfields/xSimAtc.Airfields.vcxproj" Id="a380baae-f59e-3b30-a7cc-a94f4dce913b" />
   <Project Path="xSimAtc.Communications.Tests/xSimAtc.Communications.Tests.vcxproj" Id="4ff87f8d-a64d-48fe-b23a-a993b186482e" />
   <Project Path="xSimAtc.Communications/xSimAtc.Communications.vcxproj" Id="a2fc6a58-198c-4e43-85ed-67b35db7d3d5" />
   <Project Path="xSimAtc.Terminal.WinUI/xSimAtc.Terminal.WinUI.vcxproj" Id="ead2cb25-817c-45dc-9673-6a2297defa06" />
