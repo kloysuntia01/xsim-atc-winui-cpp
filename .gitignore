@@ -1,15 +1,20 @@
 # Visual Studio
 .vs/
 *.user
+*.vcxproj.user
 *.suo
 *.VC.db
 *.VC.VC.opendb
+*.opendb
 
 # Build output
 build/
+[Bb]uild/
 x64/
 Debug/
 Release/
+[Dd]ebug*/
+[Rr]elease*/
 out/
 bin/
 obj/
@@ -64,15 +69,5 @@ Generated Files/
 GeneratedFiles/
 *.winmd
 
-# Visual Studio transient state
-*.VC.VC.opendb
-*.opendb
-
-# MSBuild intermediate/output folders that may appear below projects
-[Bb]uild/
-[Dd]ebug*/
-[Rr]elease*/
-
 # Local publish / scratch folders if ever created inside the repo
 xsim.dev/
-
