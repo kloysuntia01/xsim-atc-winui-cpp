@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include "AirfieldView.g.h"
 #include "AirfieldViewModel.h"
@@ -26,6 +26,11 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         void on_node_clicked(
             std::string node_id);
 
+        void on_runway_clicked(
+            std::string runway);
+
+        void on_clear_for_takeoff_clicked();
+
         void on_taxi_tick();
 
         [[nodiscard]]
@@ -44,6 +49,8 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
 
         Microsoft::UI::Xaml::DispatcherTimer
             taxi_timer_{ nullptr };
+
+        std::string last_clearance_;
     };
 }
 

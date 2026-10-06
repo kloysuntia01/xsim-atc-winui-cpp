@@ -6,12 +6,16 @@
   <Folder Name="/Solution Items/">
     <File Path="CMakeLists.txt" />
   </Folder>
-  <Project Path="xSimAtc.Aircrafts.Tests/xSimAtc.Aircrafts.Tests.vcxproj" Id="26786923-8062-4de3-a40f-72907673cc7f" />
-  <Project Path="xSimAtc.Aircrafts/xSimAtc.Aircrafts.vcxproj" Id="1ed9a9b3-1aca-4796-ba1f-b28a540c0de1" />
   <Project Path="build/xSimAtc.Airfields.Tests/xSimAtc.Airfields.Tests.vcxproj" Id="e9e8eace-fbcd-32b4-a762-a714201fbf55" />
   <Project Path="build/xSimAtc.Airfields/xSimAtc.Airfields.vcxproj" Id="a380baae-f59e-3b30-a7cc-a94f4dce913b" />
+  <Project Path="xSimAtc.Aircrafts.Tests/xSimAtc.Aircrafts.Tests.vcxproj" Id="26786923-8062-4de3-a40f-72907673cc7f" />
+  <Project Path="xSimAtc.Aircrafts/xSimAtc.Aircrafts.vcxproj" Id="1ed9a9b3-1aca-4796-ba1f-b28a540c0de1" />
   <Project Path="xSimAtc.Communications.Tests/xSimAtc.Communications.Tests.vcxproj" Id="4ff87f8d-a64d-48fe-b23a-a993b186482e" />
   <Project Path="xSimAtc.Communications/xSimAtc.Communications.vcxproj" Id="a2fc6a58-198c-4e43-85ed-67b35db7d3d5" />
+  <Project Path="xSimAtc.Doriax.Tests/xSimAtc.Doriax.Tests.vcxproj" Id="b21bbf6c-1131-4d4a-b54b-1b4430e30426" />
+  <Project Path="xSimAtc.Doriax/xSimAtc.Doriax.vcxproj" Id="c202f641-e735-42ad-a3af-591b0799bc01" />
+  <Project Path="xSimAtc.Speech.Tests/xSimAtc.Speech.Tests.vcxproj" Id="3e6b0b1b-42b5-4e72-a5c6-98d71543f1b1" />
+  <Project Path="xSimAtc.Speech/xSimAtc.Speech.vcxproj" Id="660331d4-a7d1-4a5b-bedd-41c226bf914a" />
   <Project Path="xSimAtc.Terminal.WinUI/xSimAtc.Terminal.WinUI.vcxproj" Id="ead2cb25-817c-45dc-9673-6a2297defa06" />
   <Project Path="xSimAtc.Towers.Tests/xSimAtc.Towers.Tests.vcxproj" Id="11d55984-e0f4-4cab-b4a8-db551e2cafaf" />
   <Project Path="xSimAtc.Towers/xSimAtc.Towers.vcxproj" Id="8d8eb410-d3d2-4f18-8e78-9dd26f598c06" />

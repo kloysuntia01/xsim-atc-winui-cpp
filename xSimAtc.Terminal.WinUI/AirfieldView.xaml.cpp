@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "AirfieldView.xaml.h"
 
 #if __has_include("AirfieldView.g.cpp")
@@ -16,6 +16,9 @@
 #include "../xSimAtc.Airfields/airfield_taxiway_overlay.h"
 #include "../xSimAtc.Airfields/airfield_taxiway_selection.h"
 #include <chrono>
+#include "../xSimAtc.Speech/atc_command.h"
+#include "../xSimAtc.Speech/atc_readback_formatter.h"
+#include "../xSimAtc.Speech/windows_text_to_speech.h"
 
 namespace winrt::xSimAtc_Terminal_WinUI::implementation
 {
@@ -947,12 +950,68 @@ void AirfieldView::render_nodes()
         stack.Children().Append(
             route_text);
 
+        Microsoft::UI::Xaml::Controls::TextBlock runway_text;
+        runway_text.Foreground(
+            brush(color(180, 220, 255)));
+        runway_text.FontSize(13.0);
+        runway_text.Text(
+            vm->has_selected_runway()
+                ? L"Runway: " + winrt::to_hstring(vm->selected_runway())
+                : L"Runway: assign after aircraft selection");
+        stack.Children().Append(runway_text);
+
+        Microsoft::UI::Xaml::Controls::StackPanel runway_buttons;
+        runway_buttons.Orientation(
+            Microsoft::UI::Xaml::Controls::Orientation::Horizontal);
+        runway_buttons.Spacing(6.0);
+
+        for (const auto& runway : { std::string{ "18L" }, std::string{ "18R" } })
+        {
+            Microsoft::UI::Xaml::Controls::Button button;
+            button.Content(winrt::box_value(winrt::to_hstring(runway)));
+            button.IsEnabled(vm->has_selected_aircraft());
+            button.Click(
+                [this, runway](auto&&, auto&&)
+                {
+                    on_runway_clicked(runway);
+                });
+            runway_buttons.Children().Append(button);
+        }
+
+        stack.Children().Append(runway_buttons);
+
+        Microsoft::UI::Xaml::Controls::Button clear_button;
+        clear_button.Content(
+            winrt::box_value(L"Clear for Takeoff"));
+        clear_button.IsEnabled(
+            vm->has_selected_aircraft() &&
+            vm->has_selected_runway());
+        clear_button.Click(
+            [this](auto&&, auto&&)
+            {
+                on_clear_for_takeoff_clicked();
+            });
+        stack.Children().Append(clear_button);
+
+        if (!last_clearance_.empty())
+        {
+            Microsoft::UI::Xaml::Controls::TextBlock clearance_text;
+            clearance_text.Foreground(brush(color(160, 255, 180)));
+            clearance_text.FontSize(12.0);
+            clearance_text.Text(
+                L"Spoken: " + winrt::to_hstring(last_clearance_));
+            clearance_text.TextWrapping(
+                Microsoft::UI::Xaml::TextWrapping::Wrap);
+            clearance_text.MaxWidth(235.0);
+            stack.Children().Append(clearance_text);
+        }
+
         card.Child(stack);
 
         Microsoft::UI::Xaml::Controls::Canvas::
             SetLeft(
                 card,
-                735.0);
+                700.0);
 
         Microsoft::UI::Xaml::Controls::Canvas::
             SetTop(
@@ -976,6 +1035,55 @@ void AirfieldView::render_nodes()
             std::move(call_sign));
 
         render_airfield();
+    }
+
+    void AirfieldView::on_runway_clicked(
+        std::string runway)
+    {
+        const auto vm =
+            winrt::get_self<
+                winrt::xSimAtc_Terminal_WinUI::
+                    implementation::AirfieldViewModel>(
+                        view_model_);
+
+        vm->assign_runway(std::move(runway));
+        last_clearance_.clear();
+        render_airfield();
+    }
+
+    void AirfieldView::on_clear_for_takeoff_clicked()
+    {
+        const auto vm =
+            winrt::get_self<
+                winrt::xSimAtc_Terminal_WinUI::
+                    implementation::AirfieldViewModel>(
+                        view_model_);
+
+        if (!vm->has_selected_aircraft() ||
+            !vm->has_selected_runway())
+        {
+            return;
+        }
+
+        const xsimatc::speech::AtcCommand command{
+            .call_sign = vm->selected_aircraft_call_sign(),
+            .action = xsimatc::speech::AtcAction::ClearedForTakeoff,
+            .runway = vm->selected_runway()
+        };
+
+        const xsimatc::speech::AtcReadbackFormatter formatter;
+        const auto readback = formatter.format(command);
+
+        if (!readback.has_value())
+        {
+            return;
+        }
+
+        last_clearance_ = *readback;
+        render_airfield();
+
+        xsimatc::speech::WindowsTextToSpeech tts;
+        tts.speak(*readback);
     }
 
     void AirfieldView::on_node_clicked(

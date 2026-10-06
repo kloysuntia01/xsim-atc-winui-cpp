@@ -30,6 +30,15 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         [[nodiscard]]
         bool has_selected_aircraft() const noexcept;
 
+        void assign_runway(std::string runway);
+
+        [[nodiscard]]
+        const std::string&
+        selected_runway() const noexcept;
+
+        [[nodiscard]]
+        bool has_selected_runway() const noexcept;
+
         bool select_route_node(std::string node_id);
 
         [[nodiscard]]
@@ -52,6 +61,7 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         xsim::airfields::Airfield airfield_;
         xsim::airfields::AirfieldRouteSelection route_selection_;
         std::string selected_aircraft_call_sign_;
+        std::string selected_runway_;
     };
 }
 

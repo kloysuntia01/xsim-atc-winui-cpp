@@ -34,3 +34,9 @@ add_custom_target(
     VERBATIM
     USES_TERMINAL
 )
+
+# The WinUI smoke slice links the CMake-built Speech static library.
+add_dependencies(
+    xSimAtc.Terminal.WinUI
+    xSimAtc.Speech
+)

@@ -21,6 +21,7 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         selected_aircraft_call_sign_ =
             std::move(call_sign);
 
+        selected_runway_.clear();
         route_selection_.clear();
     }
 
@@ -35,6 +36,30 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         const noexcept
     {
         return !selected_aircraft_call_sign_.empty();
+    }
+
+    void AirfieldViewModel::assign_runway(
+        std::string runway)
+    {
+        if (!has_selected_aircraft())
+        {
+            return;
+        }
+
+        selected_runway_ =
+            std::move(runway);
+    }
+
+    const std::string&
+    AirfieldViewModel::selected_runway() const noexcept
+    {
+        return selected_runway_;
+    }
+
+    bool AirfieldViewModel::has_selected_runway()
+        const noexcept
+    {
+        return !selected_runway_.empty();
     }
 
     bool AirfieldViewModel::select_route_node(

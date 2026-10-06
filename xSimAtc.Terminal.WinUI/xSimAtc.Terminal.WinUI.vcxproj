@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
@@ -73,11 +73,12 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\xSimAtc.Communications;$(MSBuildThisFileDirectory)..\xSimAtc.Aircrafts;$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\xSimAtc.Communications;$(MSBuildThisFileDirectory)..\xSimAtc.Aircrafts;$(MSBuildThisFileDirectory)..\xSimAtc.Speech;$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /bigobj /FS</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalOptions>/APPCONTAINER:NO %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>$(MSBuildThisFileDirectory)..\build\xSimAtc.Speech\$(Configuration)\xSimAtc.Speech.lib;sapi.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
