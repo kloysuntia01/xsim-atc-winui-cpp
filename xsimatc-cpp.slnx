@@ -22,8 +22,32 @@
   <Folder Name="/Advisory/">
     <File Path="xSimAtc.Advisory/atc_advisory_request.h" />
     <File Path="xSimAtc.Advisory/atc_advisory_result.h" />
-    <File Path="xSimAtc.Advisory/i_atc_advisory_service.h" />
     <File Path="xSimAtc.Advisory/fixed_atc_advisory_service.h" />
+    <File Path="xSimAtc.Advisory/i_atc_advisory_service.h" />
     <File Path="xSimAtc.Advisory/llama_atc_advisory_service.h" />
+  </Folder>
+  <Folder Name="/Inference/">
+    <File Path="xSimAtc.Inference.Cli/CMakeLists.txt" />
+    <File Path="xSimAtc.Inference.Cli/main.cpp" />
+    <File Path="xSimAtc.Inference/CMakeLists.txt" />
+    <File Path="xSimAtc.Inference/generation_options.h" />
+    <File Path="xSimAtc.Inference/i_local_inference.h" />
+    <File Path="xSimAtc.Inference/inference_request.h" />
+    <File Path="xSimAtc.Inference/inference_result.h" />
+    <File Path="xSimAtc.Inference/inference_text_normalizer.h" />
+    <File Path="xSimAtc.Inference/lazy_llama_inference.h" />
+    <File Path="xSimAtc.Inference/llama_cpp_inference.cpp" />
+    <File Path="xSimAtc.Inference/llama_cpp_inference.h" />
+    <File Path="xSimAtc.Inference/llama_model_options.h" />
+    <File Path="xSimAtc.Inference/llama_model.cpp" />
+    <File Path="xSimAtc.Inference/llama_model.h" />
+    <File Path="xSimAtc.Inference/pch.cpp" />
+    <File Path="xSimAtc.Inference/pch.h" />
+    <File Path="xSimAtc.Inference/Smoke/main.cpp" />
+  </Folder>
+  <Folder Name="/Inference.Tests/">
+    <File Path="xSimAtc.Inference.Tests/CMakeLists.txt" />
+    <File Path="xSimAtc.Inference.Tests/llama_inference_request_tests.cpp" />
+    <File Path="xSimAtc.Inference.Tests/llama_model_tests.cpp" />
   </Folder>
 </Solution>
