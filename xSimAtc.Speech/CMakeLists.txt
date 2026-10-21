@@ -8,6 +8,9 @@ add_library(
     whisper_model.cpp
     whisper_speech_recognizer.cpp
     windows_text_to_speech.cpp
+
+    atc_speech_formatter.cpp
+    atc_speech_formatter.h
 )
 
 target_include_directories(

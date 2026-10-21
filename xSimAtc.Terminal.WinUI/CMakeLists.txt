@@ -4,7 +4,9 @@ if(NOT MSVC)
     return()
 endif()
 
-set(XSIM_DEV_DIR "C:/Dev/Xsim.Dev")
+set(XSIM_DEV_DIR
+    "C:/Dev/Xsim.Dev"
+    CACHE PATH "xSimAtc Terminal publish directory")
 
 add_custom_target(
     xSimAtc.Terminal.WinUI
@@ -15,6 +17,11 @@ add_custom_target(
         "${CMAKE_CURRENT_SOURCE_DIR}/xSimAtc.Terminal.WinUI.vcxproj"
         /p:Configuration=$<CONFIG>
         /p:Platform=x64
+        "/p:XSimCMakeBuildRoot=${CMAKE_BINARY_DIR}"
+        "/p:XSimLlamaRuntimeRoot=${XSIM_LLAMA_PREBUILT_ROOT}"
+        "/p:OutDir=${CMAKE_BINARY_DIR}/terminal-winui/$<CONFIG>/bin/"
+        "/p:IntDir=${CMAKE_BINARY_DIR}/terminal-winui/$<CONFIG>/obj/"
+        "/p:GeneratedFilesDir=${CMAKE_BINARY_DIR}/terminal-winui/$<CONFIG>/generated/"
 
     COMMAND
         "${CMAKE_COMMAND}" -E make_directory
@@ -22,7 +29,7 @@ add_custom_target(
 
     COMMAND
         "${CMAKE_COMMAND}" -E copy_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/x64/$<CONFIG>/xSimAtc.Terminal.WinUI"
+        "${CMAKE_BINARY_DIR}/terminal-winui/$<CONFIG>/bin"
         "${XSIM_DEV_DIR}"
 
     WORKING_DIRECTORY
@@ -39,4 +46,24 @@ add_custom_target(
 add_dependencies(
     xSimAtc.Terminal.WinUI
     xSimAtc.Speech
+    xSimAtc.Inference
 )
+
+# LLAMA-001H64H: Publish the pinned llama.cpp runtime matching $<CONFIG>.
+# Keep these DLLs together and separate from whisper.cpp's build artifacts.
+foreach(_dll IN ITEMS
+    llama.dll
+    ggml.dll
+    ggml-base.dll
+    ggml-cpu.dll
+    ggml-vulkan.dll)
+
+    add_custom_command(
+        TARGET xSimAtc.Terminal.WinUI
+        POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E copy_if_different
+            "${XSIM_LLAMA_RUNTIME_DIR}/${_dll}"
+            "${XSIM_DEV_DIR}/${_dll}"
+        VERBATIM
+    )
+endforeach()

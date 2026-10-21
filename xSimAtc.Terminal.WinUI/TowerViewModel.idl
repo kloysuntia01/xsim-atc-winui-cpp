@@ -9,6 +9,11 @@ namespace xSimAtc_Terminal_WinUI
         String PendingMessage{ get; };
         String LastMessage{ get; };
 
+        String AdvisoryStatus{ get; };
+        String AdvisoryText{ get; };
+        String AdvisoryMutationStatus{ get; };
+
         void Send();
+        void RequestAdvisory();
     }
 }

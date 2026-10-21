@@ -19,4 +19,11 @@
   <Project Path="xSimAtc.Terminal.WinUI/xSimAtc.Terminal.WinUI.vcxproj" Id="ead2cb25-817c-45dc-9673-6a2297defa06" />
   <Project Path="xSimAtc.Towers.Tests/xSimAtc.Towers.Tests.vcxproj" Id="11d55984-e0f4-4cab-b4a8-db551e2cafaf" />
   <Project Path="xSimAtc.Towers/xSimAtc.Towers.vcxproj" Id="8d8eb410-d3d2-4f18-8e78-9dd26f598c06" />
+  <Folder Name="/Advisory/">
+    <File Path="xSimAtc.Advisory/atc_advisory_request.h" />
+    <File Path="xSimAtc.Advisory/atc_advisory_result.h" />
+    <File Path="xSimAtc.Advisory/i_atc_advisory_service.h" />
+    <File Path="xSimAtc.Advisory/fixed_atc_advisory_service.h" />
+    <File Path="xSimAtc.Advisory/llama_atc_advisory_service.h" />
+  </Folder>
 </Solution>

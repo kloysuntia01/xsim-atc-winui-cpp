@@ -12,6 +12,10 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
         void OnSendClick(
             Windows::Foundation::IInspectable const&,
             Microsoft::UI::Xaml::RoutedEventArgs const&);
+
+        void OnRequestAdvisoryClick(
+            Windows::Foundation::IInspectable const&,
+            Microsoft::UI::Xaml::RoutedEventArgs const&);
     };
 }
 

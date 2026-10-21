@@ -4,6 +4,10 @@
 #include "MainViewModel.h"
 #include "TowerViewModel.h"
 
+#include "../xSimAtc.Advisory/llama_atc_advisory_service.h"
+#include "../xSimAtc.Inference/lazy_llama_inference.h"
+#include "../xSimAtc.Speech/windows_text_to_speech.h"
+
 namespace winrt::xSimAtc_Terminal_WinUI::implementation
 {
     App::App()
@@ -52,8 +56,31 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
     {
         auto main_view_model = winrt::make<MainViewModel>();
 
+        // First real Tower -> local LLM advisory composition.
+        // LazyLlamaInference defers the ~model-load cost until the first
+        // Request Advisory click, then reuses the loaded model.
+        auto local_inference =
+            std::make_shared<
+                xsim::inference::LazyLlamaInference>(
+                xsim::inference::LlamaModelOptions{
+                    .model_path =
+                        R"(C:\AI\Models\Qwen3-0.6B-Q4_K_M.gguf)"
+                });
+
+        auto advisory_service =
+            std::make_shared<
+                xsim::advisory::LlamaAtcAdvisoryService>(
+                    local_inference);
+
+        auto text_to_speech =
+            std::make_shared<
+                xsimatc::speech::WindowsTextToSpeech>();
+
         auto tower_view_model =
-            winrt::make<TowerViewModel>(message_queue_);
+            winrt::make<TowerViewModel>(
+                message_queue_,
+                advisory_service,
+                text_to_speech);
 
         window_ = winrt::make<MainWindow>(
             main_view_model,

@@ -71,3 +71,9 @@ GeneratedFiles/
 
 # Local publish / scratch folders if ever created inside the repo
 xsim.dev/
+
+# LLAMA-001H650O: Canonical llama.cpp migration artifacts
+/build-llama/
+/build-llama-canonical-check/
+/external/llama.cpp/
+*.llama001h*.bak

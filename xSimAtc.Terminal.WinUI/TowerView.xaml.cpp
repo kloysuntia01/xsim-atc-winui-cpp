@@ -20,4 +20,13 @@ namespace winrt::xSimAtc_Terminal_WinUI::implementation
             .as<xSimAtc_Terminal_WinUI::TowerViewModel>()
             .Send();
     }
+
+    void TowerView::OnRequestAdvisoryClick(
+        Windows::Foundation::IInspectable const&,
+        Microsoft::UI::Xaml::RoutedEventArgs const&)
+    {
+        DataContext()
+            .as<xSimAtc_Terminal_WinUI::TowerViewModel>()
+            .RequestAdvisory();
+    }
 }

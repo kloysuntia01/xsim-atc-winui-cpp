@@ -52,6 +52,15 @@ add_subdirectory(
     EXCLUDE_FROM_ALL
 )
 
+# LLAMA-001H64G: Shared pinned llama.cpp runtime.
+# llama.cpp stays outside this build graph to isolate whisper.cpp's GGML.
+set(XSIM_LLAMA_PREBUILT_ROOT
+    "C:/Dev/llama-runtime/ead9f3205/win-x64"
+    CACHE PATH "Pinned llama.cpp runtime root")
+
+set(XSIM_LLAMA_RUNTIME_DIR
+    "${XSIM_LLAMA_PREBUILT_ROOT}/$<CONFIG>/bin")
+
 enable_testing()
 
 add_subdirectory(xSimAtc.Aircrafts)
@@ -59,6 +68,7 @@ add_subdirectory(xSimAtc.Towers)
 add_subdirectory(xSimAtc.Communications)
 add_subdirectory(xSimAtc.Airfields)
 add_subdirectory(xSimAtc.Speech)
+add_subdirectory(xSimAtc.Inference)
 add_subdirectory(xSimAtc.Terminal.WinUI)
 
 add_subdirectory(xSimAtc.Aircrafts.Tests)
@@ -66,3 +76,7 @@ add_subdirectory(xSimAtc.Towers.Tests)
 add_subdirectory(xSimAtc.Communications.Tests)
 add_subdirectory(xSimAtc.Airfields.Tests)
 add_subdirectory(xSimAtc.Speech.Tests)
+add_subdirectory(xSimAtc.Inference.Tests)
+
+# Interactive local inference console with optional Windows TTS.
+add_subdirectory(xSimAtc.Inference.Cli)

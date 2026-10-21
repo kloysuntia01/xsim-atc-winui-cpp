@@ -64,6 +64,12 @@
 
   <PropertyGroup Label="UserMacros" />
 
+    <!-- LLAMA-001H64R: Configurable canonical inference dependencies. -->
+  <PropertyGroup>
+    <XSimLlamaRuntimeRoot Condition="'$(XSimLlamaRuntimeRoot)' == ''">C:\Dev\llama-runtime\ead9f3205\win-x64</XSimLlamaRuntimeRoot>
+    <XSimCMakeBuildRoot Condition="'$(XSimCMakeBuildRoot)' == ''">$(MSBuildThisFileDirectory)..\build</XSimCMakeBuildRoot>
+  </PropertyGroup>
+
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -73,12 +79,12 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>_SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\xSimAtc.Communications;$(MSBuildThisFileDirectory)..\xSimAtc.Aircrafts;$(MSBuildThisFileDirectory)..\xSimAtc.Speech;$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\xSimAtc.Communications;$(MSBuildThisFileDirectory)..\xSimAtc.Aircrafts;$(MSBuildThisFileDirectory)..\xSimAtc.Speech;$(MSBuildThisFileDirectory)..\xSimAtc.Inference;$(MSBuildThisFileDirectory)..\xSimAtc.Advisory;$(MSBuildThisFileDirectory)..\external\RxCpp\Rx\v2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>%(AdditionalOptions) /bigobj /FS</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalOptions>/APPCONTAINER:NO %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>$(MSBuildThisFileDirectory)..\build\xSimAtc.Speech\$(Configuration)\xSimAtc.Speech.lib;sapi.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(XSimCMakeBuildRoot)\xSimAtc.Inference\$(Configuration)\xSimAtc.Inference.lib;$(XSimLlamaRuntimeRoot)\$(Configuration)\lib\llama.lib;$(XSimCMakeBuildRoot)\xSimAtc.Speech\$(Configuration)\xSimAtc.Speech.lib;sapi.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
 
